@@ -10,17 +10,18 @@ class OperationsFirebaseDB {
     await _firestore
         .collection('pessoas')
         .add({
-      'nome': nome,
-      'email': email,
-      'cpf': CPF,
-      'dtn': dtn,
-      'telefone': telefone,
-    })
+          'nome': nome,
+          'email': email,
+          'cpf': CPF,
+          'dtn': dtn,
+          'telefone': telefone,
+        })
         .then((value) => print('Pessoa cadastrada com sucesso'))
         .catchError((error) => print('Erro ao cadastrar pessoa: $error'));
   }
 
-  Future<void> cadastrarProduto(String nome, String descricao, String preco) async {
+  Future<void> cadastrarProduto(
+      String nome, String descricao, String preco) async {
     await _firestore
         .collection('produtos')
         .add({'nome': nome, 'descricao': descricao, 'preco': preco})
@@ -33,12 +34,12 @@ class OperationsFirebaseDB {
     await _firestore
         .collection('fornecedores')
         .add({
-      'nome': nome,
-      'email': email,
-      'cnpj': CNPJ,
-      'rs': rs,
-      'telefone': telefone,
-    })
+          'nome': nome,
+          'email': email,
+          'cnpj': CNPJ,
+          'rs': rs,
+          'telefone': telefone,
+        })
         .then((value) => print('Fornecedor cadastrado com sucesso'))
         .catchError((error) => print('Erro ao cadastrar fornecedor: $error'));
   }
@@ -53,7 +54,8 @@ class OperationsFirebaseDB {
     }).catchError((error) => print('Erro ao excluir fornecedor: $error'));
   }
 
-  Future<void> atualizarFornecedor(String nome, Map<String, dynamic> novosDados) async {
+  Future<void> atualizarFornecedor(
+      String nome, Map<String, dynamic> novosDados) async {
     await _firestore
         .collection('fornecedores')
         .where('nome', isEqualTo: nome)
@@ -97,7 +99,8 @@ class OperationsFirebaseDB {
     }).catchError((error) => print('Erro ao excluir pessoa: $error'));
   }
 
-  Future<void> atualizarPessoa(String nome, Map<String, dynamic> novosDados) async {
+  Future<void> atualizarPessoa(
+      String nome, Map<String, dynamic> novosDados) async {
     await _firestore
         .collection('pessoas')
         .where('nome', isEqualTo: nome)
@@ -129,7 +132,8 @@ class OperationsFirebaseDB {
     }).catchError((error) => print('Erro ao excluir produto: $error'));
   }
 
-  Future<void> atualizarProduto(String nome, Map<String, dynamic> novosDados) async {
+  Future<void> atualizarProduto(
+      String nome, Map<String, dynamic> novosDados) async {
     await _firestore
         .collection('produtos')
         .where('nome', isEqualTo: nome)
@@ -153,7 +157,6 @@ class OperationsFirebaseDB {
       return false;
     }
   }
-
 
   Future<bool> logarUsuario(String email, String password) async {
     try {

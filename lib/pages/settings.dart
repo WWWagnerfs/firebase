@@ -22,7 +22,7 @@
           toolbarHeight: 100,
           elevation: 15,
           centerTitle: true,
-          backgroundColor: Colors.blue.shade600,
+          backgroundColor: Colors.purple,
           title: const Text(
             'Suporte',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
@@ -35,6 +35,10 @@
           ),
         ),
         body: WebViewWidget(controller: controller),
+          bottomSheet: Container(
+            height: 10,
+            color: Colors.purple,
+          )
       );
     }
   }

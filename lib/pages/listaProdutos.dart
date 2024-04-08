@@ -23,13 +23,18 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
   }
 
   Future<void> _showEditNameDialog(String nomeAtual, int index) async {
-    TextEditingController _nomeController = TextEditingController(text: nomeAtual);
+    TextEditingController _nomeController =
+        TextEditingController(text: nomeAtual);
+    String novoNome = '';
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Editar Produto'),
         content: TextField(
           controller: _nomeController,
+          onChanged: (value) {
+            novoNome = value; // Atualize o novo nome conforme o usuário digita
+          },
           decoration: InputDecoration(labelText: 'Nome do Produto'),
         ),
         actions: [
@@ -41,7 +46,7 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
           ),
           ElevatedButton(
             onPressed: () async {
-              await OperationsFirebaseDB().atualizarProduto(nomeAtual, _nomeController.text as Map<String, dynamic>);
+              await _atualizarProduto(nomeAtual, novoNome);
               setState(() {
                 _produtosFuture = _getProdutos();
               });
@@ -54,6 +59,11 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
     );
   }
 
+  Future<void> _atualizarProduto(String nomeAtual, String novoNome) async {
+    await OperationsFirebaseDB()
+        .atualizarProduto(nomeAtual, {'nome': novoNome});
+  }
+
   Future<void> _excluirProduto(String nome) async {
     await OperationsFirebaseDB().excluirProduto(nome);
     setState(() {
@@ -61,15 +71,15 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.purple.shade50,
       appBar: AppBar(
         toolbarHeight: 100,
         elevation: 15,
         centerTitle: true,
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: Colors.purple,
         title: Text(
           'Listar Produto',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
@@ -96,7 +106,7 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
               itemBuilder: (context, index) {
                 var produto = snapshot.data![index];
                 return Card(
-                  color: Colors.blueAccent,
+                  color: Colors.purple.shade500,
                   margin: EdgeInsets.all(8),
                   child: ListTile(
                     leading: GestureDetector(
@@ -117,13 +127,20 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
                         color: Colors.redAccent,
                       ),
                     ),
-                    title: Text(
-                      produto,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    title: Row(
+                      children: [
+                        Icon(Icons.shopping_bag,
+                            color: Colors.white), // Ícone "person"
+                        SizedBox(width: 10), // Espaço entre o ícone e o texto
+                        Text(
+                          produto,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 );
@@ -132,6 +149,10 @@ class _ListarProdutosPageState extends State<ListarProdutosPage> {
           }
         },
       ),
+        bottomSheet: Container(
+          height: 10,
+          color: Colors.purple,
+        )
     );
   }
 }

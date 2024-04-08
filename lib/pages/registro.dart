@@ -48,7 +48,7 @@ class _CadastroLoginState extends State<CadastroLogin> {
         toolbarHeight: 100,
         elevation: 15,
         centerTitle: true,
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: Colors.purple,
         title: Text(
           'Cadastro Usuário',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
@@ -68,16 +68,21 @@ class _CadastroLoginState extends State<CadastroLogin> {
             CustomTextFormField(
               campo: 'E-Mail',
               controlador: controller_email,
+              prefixIcon: Icons.email,
             ),
             SizedBox(height: 10),
             CustomTextFormField(
               campo: 'Senha',
               controlador: controller_senha,
+              isPassword: true,
+              prefixIcon: Icons.lock,
             ),
             SizedBox(height: 10),
             CustomTextFormField(
               campo: 'Redigite a Senha',
               controlador: controller_redigitaSenha,
+              isPassword: true,
+              prefixIcon: Icons.lock,
             ),
             SizedBox(height: 20),
             Container(
@@ -97,7 +102,7 @@ class _CadastroLoginState extends State<CadastroLogin> {
                   controller_redigitaSenha.clear();
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Colors.blue.shade600),
+                  backgroundColor: MaterialStatePropertyAll(Colors.purple),
                 ),
                 child: Text('Criar Conta', style: TextStyle(color: Colors.white)),
               ),
@@ -105,6 +110,10 @@ class _CadastroLoginState extends State<CadastroLogin> {
           ],
         ),
       ),
+        bottomSheet: Container(
+          height: 10,
+          color: Colors.purple,
+        )
     );
   }
 }

@@ -21,15 +21,24 @@ class _ListaFornecedorPageState extends State<ListaFornecedorPage> {
   Future<List<String>> _getFornecedor() async {
     return OperationsFirebaseDB().listarFornecedores();
   }
+  Future<void> _atualizarFornecedor(String nomeAtual, String novoNome) async {
+    await OperationsFirebaseDB()
+        .atualizarFornecedor(nomeAtual, {'nome': novoNome});
+  }
 
   Future<void> _showEditNameDialog(String nomeAtual, int index) async {
-    TextEditingController _nomeController = TextEditingController(text: nomeAtual);
+    TextEditingController _nomeController =
+        TextEditingController(text: nomeAtual);
+    String novoNome = '';
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Editar Fornecedor'),
         content: TextField(
           controller: _nomeController,
+          onChanged: (value) {
+            novoNome = value; // Atualize o novo nome conforme o usuário digita
+          },
           decoration: InputDecoration(labelText: 'Nome do Fornecedor'),
         ),
         actions: [
@@ -41,7 +50,7 @@ class _ListaFornecedorPageState extends State<ListaFornecedorPage> {
           ),
           ElevatedButton(
             onPressed: () async {
-              await OperationsFirebaseDB().atualizarFornecedor(nomeAtual, _nomeController.text as Map<String, dynamic>);
+              await _atualizarFornecedor(nomeAtual, novoNome);
               setState(() {
                 _fornecedorFuture = _getFornecedor();
               });
@@ -61,15 +70,15 @@ class _ListaFornecedorPageState extends State<ListaFornecedorPage> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.purple.shade50,
       appBar: AppBar(
         toolbarHeight: 100,
         elevation: 15,
         centerTitle: true,
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: Colors.purple,
         title: Text(
           'Listar Fornecedores',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
@@ -96,7 +105,7 @@ class _ListaFornecedorPageState extends State<ListaFornecedorPage> {
               itemBuilder: (context, index) {
                 var fornecedor = snapshot.data![index];
                 return Card(
-                  color: Colors.blueAccent,
+                  color: Colors.purple.shade500,
                   margin: EdgeInsets.all(8),
                   child: ListTile(
                     leading: GestureDetector(
@@ -117,13 +126,20 @@ class _ListaFornecedorPageState extends State<ListaFornecedorPage> {
                         color: Colors.redAccent,
                       ),
                     ),
-                    title: Text(
-                      fornecedor,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    title: Row(
+                      children: [
+                        Icon(Icons.person,
+                            color: Colors.white), // Ícone "person"
+                        SizedBox(width: 10), // Espaço entre o ícone e o texto
+                        Text(
+                          fornecedor,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 );
@@ -132,6 +148,10 @@ class _ListaFornecedorPageState extends State<ListaFornecedorPage> {
           }
         },
       ),
+        bottomSheet: Container(
+          height: 10,
+          color: Colors.purple,
+        )
     );
   }
 }

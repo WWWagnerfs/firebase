@@ -12,28 +12,33 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.purple.shade50,
       appBar: AppBar(
         toolbarHeight: 100,
         elevation: 15,
         centerTitle: true,
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: Colors.purple,
         title: const Text(
           'Página Inicial',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
         ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, Rotas.homePage);
-          },
-        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, Rotas.loginConta);
+                },
+                child: Icon(Icons.logout, color: Colors.purple.shade200)),
+          )
+        ],
       ),
       body: Center(
         child: GridView.builder(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(22),
           gridDelegate:
-          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          itemCount: 7,
+              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          itemCount: 8,
           itemBuilder: (context, index) {
             List<IconData> icons = [
               Icons.person_add_alt_1,
@@ -43,6 +48,7 @@ class _HomePageState extends State<HomePage> {
               Icons.assignment,
               Icons.business,
               Icons.settings,
+              Icons.window,
             ];
             List<String> titles = [
               'Cadastrar Pessoas',
@@ -52,40 +58,45 @@ class _HomePageState extends State<HomePage> {
               'Listar Produtos',
               'Listar Fornecedor',
               'Suporte',
+              'Windows',
             ];
             return GestureDetector(
               onTap: () {
                 switch (index) {
                   case 0:
-                    Navigator.pushNamed(context, Rotas.cadastro);
+                    Navigator.pushReplacementNamed(context, Rotas.cadastro);
                     break;
                   case 1:
-                    Navigator.pushNamed(context, Rotas.cadastroProduto);
+                    Navigator.pushReplacementNamed(
+                        context, Rotas.cadastroProduto);
                     break;
                   case 2:
-                    Navigator.pushNamed(context, Rotas.cadastroFornecedor);
+                    Navigator.pushReplacementNamed(
+                        context, Rotas.cadastroFornecedor);
                     break;
                   case 3:
-                    Navigator.pushNamed(context, Rotas.listaPessoa);
+                    Navigator.pushReplacementNamed(context, Rotas.listaPessoa);
                     break;
                   case 4:
-                    Navigator.pushNamed(context, Rotas.listaProdutos);
+                    Navigator.pushReplacementNamed(
+                        context, Rotas.listaProdutos);
                     break;
                   case 5:
-                    Navigator.pushNamed(context, Rotas.listaFornecedor);
+                    Navigator.pushReplacementNamed(
+                        context, Rotas.listaFornecedor);
                     break;
                   case 6:
-                    Navigator.pushNamed(context, Rotas.settings);
+                    Navigator.pushReplacementNamed(context, Rotas.settings);
                     break;
                 }
                 print('Navegando para ${titles[index]}');
               },
               child: Card(
-                color: Colors.blueAccent,
+                color: Colors.purple,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(icons[index], size: 80, color: Colors.white),
+                    Icon(icons[index], size: 80, color: Colors.purple.shade50),
                     Text(titles[index], style: TextStyle(color: Colors.white)),
                   ],
                 ),
@@ -93,6 +104,10 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
+      ),
+      bottomSheet: Container(
+        height: 10,
+        color: Colors.purple,
       ),
     );
   }

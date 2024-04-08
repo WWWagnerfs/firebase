@@ -24,11 +24,12 @@ class _RecuperaLoginState extends State<RecuperaLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.purple.shade50,
       appBar: AppBar(
         toolbarHeight: 100,
         elevation: 15,
         centerTitle: true,
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: Colors.purple,
         title: Text(
           'Recuperar Conta',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
@@ -48,7 +49,7 @@ class _RecuperaLoginState extends State<RecuperaLogin> {
             CustomTextFormField(
               campo: 'E-Mail',
               controlador: controller_email,
-              //prefixIcon: Icons.email,
+              prefixIcon: Icons.email,
             ),
 
             SizedBox(height: 20),
@@ -63,7 +64,7 @@ class _RecuperaLoginState extends State<RecuperaLogin> {
                   Navigator.pushReplacementNamed(context, Rotas.loginConta);
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Colors.blue.shade600),
+                  backgroundColor: MaterialStatePropertyAll(Colors.purple),
                 ),
                 child: Text('Recuperar', style: TextStyle(color: Colors.white)),
               ),
@@ -71,6 +72,10 @@ class _RecuperaLoginState extends State<RecuperaLogin> {
           ],
         ),
       ),
+        bottomSheet: Container(
+          height: 10,
+          color: Colors.purple,
+        )
     );
   }
 }

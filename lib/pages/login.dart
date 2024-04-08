@@ -13,8 +13,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController controller_email = TextEditingController();
   final TextEditingController controller_senha = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final OperationsFirebaseDB _firebaseDB = OperationsFirebaseDB();
 
   @override
   void dispose() {
@@ -30,7 +28,7 @@ class _LoginState extends State<Login> {
         toolbarHeight: 100,
         elevation: 15,
         centerTitle: true,
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: Colors.purple,
         title: Text(
           'Faça seu Login',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
@@ -44,15 +42,14 @@ class _LoginState extends State<Login> {
             CustomTextFormField(
               campo: 'E-Mail',
               controlador: controller_email,
-              //prefixIcon: Icons.email,
+              prefixIcon: Icons.email,
             ),
-
             SizedBox(height: 20),
             CustomTextFormField(
               campo: 'Senha',
               controlador: controller_senha,
-              //isPassword: true,
-              //prefixIcon: Icons.lock,
+              isPassword: true,
+              prefixIcon: Icons.lock,
             ),
             SizedBox(height: 20),
             Container(
@@ -101,7 +98,7 @@ class _LoginState extends State<Login> {
                 },
                 style: ButtonStyle(
                   backgroundColor:
-                      MaterialStatePropertyAll(Colors.blue.shade600),
+                      MaterialStatePropertyAll(Colors.purple),
                 ),
                 child: Text('Entrar', style: TextStyle(color: Colors.white)),
               ),
@@ -112,7 +109,7 @@ class _LoginState extends State<Login> {
               },
               child: Text('Criar uma nova conta'),
               style: TextButton.styleFrom(
-                foregroundColor: Colors.blueAccent, // Cor do texto
+                foregroundColor: Colors.purple.shade500, // Cor do texto
               ),
             ),
             TextButton(
@@ -121,12 +118,16 @@ class _LoginState extends State<Login> {
               },
               child: Text('Esqueci minha senha'),
               style: TextButton.styleFrom(
-                foregroundColor: Colors.blueAccent, // Cor do texto
+                foregroundColor: Colors.purple.shade500, // Cor do texto
               ),
             ),
           ],
         ),
       ),
+        bottomSheet: Container(
+          height: 10,
+          color: Colors.purple,
+        )
     );
   }
 }
